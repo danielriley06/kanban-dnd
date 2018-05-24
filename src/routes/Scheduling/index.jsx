@@ -23,7 +23,6 @@ class Scheduling extends PureComponent {
   }
 
   onDragEnd = (result) => {
-    console.log(result)
     const { source, destination, draggableId } = result;
 
     // dropped outside the list
@@ -54,7 +53,6 @@ class Scheduling extends PureComponent {
     sourceClone[taskIndex].scheduledDate = {
       S: this.props.dateFilter,
     };
-    debugger
     this.props.dispatch({
       type: 'tasks/schedule',
       payload: {
