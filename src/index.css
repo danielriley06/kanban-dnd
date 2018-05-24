@@ -1,5 +1,50 @@
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+#root {
+  height: 100%;
+}
+
+.ant-list-item-meta-avatar {
+  align-self: center;
+  height: 100%;
+}
+
+.strip {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+ }
+
+ .strip > * {
+  flex-grow: 1;
+ }
+
+ .strip > span {
+  flex-grow: 0;
+ }
+
+.day {
+  text-align: center;
+  height: 65px;
+}
+
+.day span {
+  display: block;
+  line-height: 1em;
+}
+
+.day.today {
+  background: grey;
+  color: white;
+}
+
+.day.active {
+  background: #FFF;
+  color: #000;
 }
