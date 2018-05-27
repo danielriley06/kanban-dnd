@@ -70,10 +70,10 @@ class Scheduling extends PureComponent {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Row gutter={16}>
-          <Col xs={24} md={6} offset={2}>
+          <Col xs={24} sm={12} lg={{ span: 6, offset: 2 }}>
             <DatePicker />
           </Col>
-          <Col xs={24} md={8} offset={4}>
+          <Col xs={24} sm={12} lg={{ span: 8, offset: 4 }}>
             <TaskList
               tasks={tasks}
               loading={loading}

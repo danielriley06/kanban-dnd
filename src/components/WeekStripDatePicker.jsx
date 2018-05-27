@@ -6,17 +6,10 @@ import WeekStripDay from './WeekStripDay';
 
 
 class WeekStripDatePicker extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedDate: props.date,
-      visibleWeek: props.date,
-    };
-
-    this.handleClick = this.selectDay.bind(this);
-    this.setVisibleWeek = this.setVisibleWeek.bind(this);
-  }
+  state = {
+    selectedDate: moment(new Date()),
+    visibleWeek: moment(new Date()),
+  };
 
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -25,7 +18,7 @@ class WeekStripDatePicker extends React.Component {
     });
   }
 
-  setVisibleWeek(offsetDays) {
+  setVisibleWeek = (offsetDays) => {
     const date = moment(this.state.visibleWeek);
     date.add(offsetDays, 'days');
 
@@ -34,24 +27,22 @@ class WeekStripDatePicker extends React.Component {
     }));
   }
 
-  selectDay(date, that) {
+  selectDay = (date) => {
+    console.log(date)
     this.setState(() => ({
       selectedDate: date,
     }));
-    console.log(date.toDate())
-    if (this.props.onChange) {
-      this.props.onChange(date.toDate());
-    }
-  }
-
-  isSelected(date) {
-    return this.state.selectedDate.format('D M Y') === date.format('D M Y');
+    this.props.onChange(date.toDate());
   }
 
   render() {
-    const week = getWeekDays(this.state.visibleWeek).map(date => (
-      <div key={date.day()} onClick={e => this.selectDay(date, this)}>
-        <WeekStripDay date={date} active={this.isSelected(date)} />
+    const {
+      selectedDate,
+      visibleWeek,
+    } = this.state;
+    const week = getWeekDays(visibleWeek).map(date => (
+      <div key={date.day()} onClick={e => this.selectDay(date)}>
+        <WeekStripDay date={date} selectedDate={selectedDate} />
       </div>
     ));
 

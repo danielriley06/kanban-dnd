@@ -15,16 +15,14 @@ class DatePicker extends Component {
   render() {
     return (
       <div style={{ background: '#f5f5f5', borderRadius: 4, height: 'calc(100vh - 120px)', overflowY: 'scroll' }}>
-        <WeekStripDatePicker date={moment(new Date())} onChange={this.onPanelChange} />
+        <WeekStripDatePicker onChange={this.onPanelChange} />
         <ScheduledTaskList />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  dateFilter: state.tasks.dateFilter,
-});
+const mapStateToProps = state => ({});
 
 export default connect(mapStateToProps)(DatePicker);
 

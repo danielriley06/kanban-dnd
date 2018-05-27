@@ -2,23 +2,27 @@ import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
+
+
+const isSelected = (date, selectedDate) => {
+  return selectedDate.format('D M Y') === date.format('D M Y');
+};
+
 const DaySelector = styled.div`
   height: 100%;
   display: flex;
   flex-flow: column;
   justify-content: flex-end;
+  background: ${props => (isSelected(props.date, props.selectedDate) ? '#FFF' : 'inherit')};
+  color: #4a4a4a;
   &:hover {
     background: #FFF;
     cursor: pointer;
   }
 `;
 
-const getStyles = ({ date, active }) => {
+const getStyles = ({ date }) => {
   const classes = ['day'];
-
-  if (active) {
-    classes.push('active');
-  }
 
   if (date.isSame(moment(), 'day')) {
     classes.push('today');
@@ -27,7 +31,7 @@ const getStyles = ({ date, active }) => {
   return classes.join(' ');
 };
 
-const defaultRenderDay = ({ date }) => {
+const defaultRenderDay = (date, selectedDate) => {
   const weekday = date.format('dd')[0];
   const day = date.date();
 
@@ -35,7 +39,7 @@ const defaultRenderDay = ({ date }) => {
     date.day() === 0 || day === 0 ? date.format('MMM') : <span>&nbsp;</span>;
 
   return (
-    <DaySelector>
+    <DaySelector date={date} selectedDate={selectedDate}>
       <span style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{weekday}</span>
       <span style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{day}</span>
     </DaySelector>
@@ -45,12 +49,13 @@ const defaultRenderDay = ({ date }) => {
 /**
  * WeekStripDay
  */
-const WeekStripDay = ({ date, active }) => {
+const WeekStripDay = ({ date, selectedDate }) => {
   const momentDate = moment(date);
+  const momentSelectedDate = moment(selectedDate);
 
   return (
-    <div className={getStyles({ date, active })}>
-      {defaultRenderDay({ date: momentDate })}
+    <div className={getStyles({ date, momentSelectedDate })}>
+      {defaultRenderDay(momentDate, momentSelectedDate)}
     </div>
   );
 };

@@ -13,7 +13,7 @@ export const getNext7Days = (date) => {
 };
 
 export const getWeekSunday = (date) => {
-  const offset = date.day() === 0 ? 7 : date.day();
+  const offset = date.day() === 0 ? date.day() : -7;
 
   const monday = moment(date);
   monday.subtract(offset, 'days');
@@ -22,6 +22,6 @@ export const getWeekSunday = (date) => {
 };
 
 export const getWeekDays = (date) => {
-  const monday = getWeekSunday(moment(date));
-  return getNext7Days(monday);
+  const sunday = getWeekSunday(moment(date));
+  return getNext7Days(sunday);
 };
